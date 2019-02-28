@@ -14,13 +14,20 @@
     "type": "git",
     "url": "git+https://github.com/LeslieSaVa/SCL007-md-links.git"
   },
-  "author": "",
+  "author": "Leslie Sabattin Vallejos",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/LeslieSaVa/SCL007-md-links/issues"
   },
   "homepage": "https://github.com/LeslieSaVa/SCL007-md-links#readme",
   "dependencies": {
-    "markdown-link-extractor": "^1.2.0"
+    "chai": "^4.2.0",
+    "markdown-link-extractor": "^1.2.0",
+    "node-fetch": "^2.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
   }
 }

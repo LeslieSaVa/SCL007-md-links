@@ -5,13 +5,14 @@ const fetch = require('node-fetch');
 
 //module.exports = {
 
-const files = process.argv[2];
+const files = (process.argv[2]);
 
 function checkmd(file) {
+    let fileabs = path.resolve(file);
     return new Promise((resolve, reject) => {
-        const ext = path.extname(file);
+        const ext = path.extname(fileabs);
         if (ext === '.md')
-            return resolve(fs.readFileSync(file).toString());
+            return resolve(fs.readFileSync(fileabs).toString());
     })
 }
 
@@ -50,14 +51,57 @@ function validateLink(link) {
     })
 }
 
-// para el caso de directorio 
+//para el caso de directorio 
 
-// function readDirFiles() {
-//     const dirListFiles = [];
-//     const fileList = [];
+// function readDirFiles (user) {
+//     return new Promise((resolve, reject) => {
+//         const userabs = path.resolve(user);
+//         const filemd = path.extname(userabs);
+//         const stats = fs.statSync(userabs)
 
-//     if(){
 
-//     }
+//         if(stats.isFile() === true && filemd === '.md'){
+//             return resolve( new Promise ((res,reject) => {
+//                 return res (markdownLinkExtractor(userabs))
+//             }))
+//         }else if(stats.isDirectory() === true){
+//             return resolve (fs.readdirSync(userabs).toString()); 
+//         }   
+//     })
 // }
-//}
+
+// readDirFiles(process.argv[2])
+// .then(res => {
+//     console.log(res)
+// });
+// //}
+
+//main.js
+
+    // .then(files => {
+    //     //es un arreglo de promesas
+    //     return Promise.all(files)
+    // })
+    // .then( linksvalidated => {
+    //     //mostrar los links validated en un objeto
+    //     linksvalidated.forEach(item => {
+    //         console.log(item.link, item.validate);
+    //     });
+    // })
+    // .catch(error => {
+    //     return console.log(error);
+    // })
+
+
+// const validateStatus = (arrLinks) => {
+//     return new Promise ((resolve,r4eject) =>{
+//         const checks = arrLinks.map( link => {
+//             return validateLink(link)
+//         })
+//     })
+//     Promise.all(checks).then(res => {
+//         resolve(console.log(res))
+//     })
+// }
+
+   
