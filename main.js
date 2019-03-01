@@ -6,34 +6,36 @@ const fetch = require('node-fetch');
 const userDirection = process.argv[2];
 
 
-
 const linkExtractorfromFiles = (arrMdFiles) => {
     const filesMD = fs.readFileSync(arrMdFiles).toString();
     const linksExtract = markdownLinkExtractor(filesMD)
     //console.log(linksExtract);
     return linksExtract;
-
 };
 
 const validateLink = link => new Promise((resolve, reject) => {
-    fetch(link)
+    //console.log(link.href)
+    fetch(link.href)
         .then((response) => {
             if (response.status === 200) {
                 return resolve({
-                    href: response.url,
+                    ...link,
                     validate: response.statusText,
-                    file: path.resolve(require('path').dirname(require.main.filename), userDirection),
+                    //file: absolutePath,
+                    
                 });    
             }
             return resolve({
-                href: response.url,
+                ...link,
                 validate: response.statusText,
-                file: path.resolve(require('path').dirname(require.main.filename), userDirection),
+                //file: absolutePath,
+                
             });
         })
         .catch(err => resolve({
-            href: link,
+            ...link,
             validate: 'false',
+            //file: absolutePath,
         }));
 });
 
@@ -43,17 +45,24 @@ const mdLinks = (userDirection, options = { validate: false }) => new Promise((r
     const absolutePath = path.resolve(userDirection);
     const directory = fs.statSync(absolutePath);
 
+
     if (directory.isFile()) {
         if (path.extname(userDirection) === '.md') {
             if (fs.existsSync(absolutePath) === true) {
-                const links = linkExtractorfromFiles(absolutePath);
+                const links2 = linkExtractorfromFiles(absolutePath);
+                const links = links2.map(link=> {
+                    return({
+                        ...link,
+                        file: absolutePath
+                    })
+                })
                 const validatePromises = links.map(elem => {
+
                     if (options.validate) {
                         return validateLink(elem);
                     } else {
                         return {
-                            href: elem,
-                            file: path.resolve(require('path').dirname(require.main.filename), userDirection),
+                            ...elem
                         };
                     }
                 });
