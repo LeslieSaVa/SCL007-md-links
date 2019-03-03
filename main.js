@@ -72,7 +72,7 @@ const mdLinks = (userDirection, options = { validate: false }) => new Promise((r
                 });
             }
         } else {
-            return resolve([]);
+            return resolve('no es un archivo md');
         }
     } else if (directory.isDirectory() === true) {
         const filesInDir = fs.readdirSync(userDirection);
@@ -94,9 +94,10 @@ const mdLinks = (userDirection, options = { validate: false }) => new Promise((r
                 return resolve(arrPathFiles);
             });
     } else {
-        resolve([]);
+        resolve('La ruta ingresada no contiene archivos md');
     }
 });
+
 
 module.exports = mdLinks;
 

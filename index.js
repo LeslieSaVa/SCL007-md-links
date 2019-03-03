@@ -1,56 +1,52 @@
-//#!/usr/bin/env node 
+#!/usr/bin/env node
 
 const mdLinks = require('./main.js');
-const path = require ('path');
 
-// module.exports = () => {
-//   // ...
-// };
 module.exports = mdLinks;
 
-// if(require.main === module){
+if (require.main === module) {
 
-//   let opciones = [];
-//   let camino = process.argv;
-//   let anaPaula;
+  let option = [];
+  let pathUser = process.argv;
+  let path;
 
-//   //guarda las opciones para que lea lo que el usuario ingresa en la terminal 
+  //guarda las option para que lea lo que el usuario ingresa en la terminal 
 
-//   for(let i=2; i< camino.length; i++){
-//     if( camino[i].indexOf('--') !== -1){
-//       opciones.push(camino[i])
-//     }else{
-//       anaPaula = process.argv[i];
-//     }
-//   }
+  for (let i = 2; i < pathUser.length; i++) {
+    if (pathUser[i].indexOf('--') !== -1) {
+      option.push(pathUser[i])
+    } else {
+      path = process.argv[i];
+    }
+  }
 
-//   mdLinks(anaPaula, options = {validate:true})
-//   .then(data => {
-//     if(opciones.indexOf('--validate') !== -1){
-//       for(let i=0; i<data.length; i++){
-//         console.log(data[i].href, data[i].validate);
-//       }
-//     }
-//     if(opciones.indexOf('--stats') !== -1){
-//       const total = data.length;
-//       const totalOK = data.filter(elem => {
-//         return elem.validate === 'OK' 
-//       }).length 
-//       const brokenelem = total - totalOK
-//       console.log('links totales:',total,'\n','links OK:',totalOK,'\n','links rotos:',brokenelem);
-//     }
-
-//   });
-// }
-
-mdLinks(process.argv[2], {validate:false})
-  .then(console.log);
-  
-
-
-// module.exports = () => {
-
-// };
-
-//index.js: Desde este archivo debes exportar una función (mdLinks).
-
+  if (option.indexOf('--validate') !== -1 || option.indexOf('--v') !== -1) {
+    mdLinks(path, { validate: true })
+      .then(data => {
+        console.log(data);
+        return data;
+      })
+      .then(data2 => {
+        if (option.indexOf('--stats') !== -1 || option.indexOf('--s') !== -1) {
+          const total = data2.length;
+          const totalOK = data2.filter(elem => {
+            return elem.validate === 'OK'
+          }).length
+          const brokenelem = total - totalOK
+          console.log('links totales:', total, '\n', 'links OK:', totalOK, '\n', 'links rotos:', brokenelem);
+        }
+      })
+  } else {
+    mdLinks(path)
+      .then(data1 => {
+        console.log(data1);
+        return data1;
+      })
+      .then(data3 => {
+        if (option.indexOf('--stats') !== -1 || option.indexOf('--s') !== -1) {
+          const total = data3.length;
+          console.log('links totales:', total, '\n');
+        }
+      })
+  }
+}
