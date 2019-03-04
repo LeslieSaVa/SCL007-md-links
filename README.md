@@ -9,7 +9,7 @@
 Para instalar el módulo en tu proyecto, debes posicionarte en la carpeta de este e ingresar el siguiente comando en la terminal:
 
 ```js
-npm install --save https://github.com/LeslieSaVa/SCL007-md-links
+npm install --save https://github.com/LeslieSaVa/SCL007-md-links.git
 ```
 #### `mdLinks(path, options)`
 

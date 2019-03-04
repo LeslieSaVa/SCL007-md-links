@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "## Preámbulo",
   "main": "index.js",
-  "bin": "index.js",
+  "bin": {"mdlinks":"./index.js"},
   "directories": {
     "test": "test"
   },
