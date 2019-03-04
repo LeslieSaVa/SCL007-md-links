@@ -72,7 +72,7 @@ const mdLinks = (userDirection, options = { validate: false }) => new Promise((r
                 });
             }
         } else {
-            return resolve('no es un archivo md');
+            return resolve([]);
         }
     } else if (directory.isDirectory() === true) {
         const filesInDir = fs.readdirSync(userDirection);
@@ -94,27 +94,11 @@ const mdLinks = (userDirection, options = { validate: false }) => new Promise((r
                 return resolve(arrPathFiles);
             });
     } else {
-        resolve('La ruta ingresada no contiene archivos md');
+        resolve([]);
     }
 });
 
 
 module.exports = mdLinks;
 
-// mdLinks(userDirection)
-// //     // Este then toma el arreglo de promesas cumplidas que retorna de promise all y lo imprime como un objeto con propiedades
-//  .then(console.log);
-// linksValidated.forEach(item => {
-// console.log(item.link, item.validate)
-// })
-// })
 
-//}
-// mdLinks(process.argv[2])
-
-
-
-
-// validate y stat
-// agregar path al objeto porque tengo el link pero no se de que archivo viene
-// recorrer el linkObj y a cada uno agregarle el path
